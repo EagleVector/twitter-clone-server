@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import { prismaClient } from '../clients/db';
 
 import { User } from './user';
 import { Tweet } from './tweet';
@@ -28,6 +27,7 @@ export async function initServer() {
 
 			type Mutation {
 				${Tweet.mutations}
+				${User.mutations}
 			}
     `,
 		resolvers: {
@@ -36,7 +36,8 @@ export async function initServer() {
 				...Tweet.resolvers.queries
 			},
 			Mutation: {
-				...Tweet.resolvers.mutations
+				...Tweet.resolvers.mutations,
+				...User.resolvers.mutations
 			},
 			...Tweet.resolvers.extraResolvers,
 			...User.resolvers.extraResolvers
