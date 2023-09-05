@@ -63,6 +63,10 @@ class UserService {
 
   }
 
+	public static getUserById(id: string) {
+		return prismaClient.user.findUnique({ where: { id } })
+	}
+
 	public static followUser(from: string, to: string) {
 		return prismaClient.follows.create({
 			data: {
@@ -78,9 +82,6 @@ class UserService {
 		})
 	}
 
-	public static getUserById(id: string) {
-		return prismaClient.user.findUnique({ where: { id } })
-	}
 }
 
 export default UserService;
