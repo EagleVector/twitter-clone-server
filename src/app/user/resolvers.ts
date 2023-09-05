@@ -57,7 +57,6 @@ const extraResolvers = {
 			const cachedValue = await redisClient.get(`RECOMMENDED_USERS:${ctx.user.id}`);
 
 			if (cachedValue) {
-				console.log("Cache Found")
 				return JSON.parse(cachedValue);
 			}
 
@@ -87,7 +86,6 @@ const extraResolvers = {
 				}
 			}
 
-			console.log("Cache Not Found");
 			await redisClient.set(
 				`RECOMMENDED_USERS:${ctx.user.id}`,
 				JSON.stringify(users)
